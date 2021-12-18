@@ -71,9 +71,15 @@ class MainActivity : AppCompatActivity() {
         // Preserve state across recompositions, remember the mutable state using remember().
         // remember() is used to guard against recomposition, so the state is not reset.
         // Each Greeting maintains its own expanded state, because they belong to different UI elements.
-        val expanded = remember { mutableStateOf(false) }
-        // Add extra padding to the column based on expanded state.
-        val extraPadding = if (expanded.value) 48.dp else 0.dp
+        var expanded by rememberSaveable { mutableStateOf(false) }
+        // Add extra padding with animation to the column based on expanded state.
+        val extraPadding by animateDpAsState(
+            if (expanded) 48.dp else 0.dp,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioLowBouncy,
+                stiffness = Spring.StiffnessMedium
+            )
+        )
         // Using Surface() to change the background of elements.
         Surface(
             color = MaterialTheme.colors.primary,
@@ -83,7 +89,11 @@ class MainActivity : AppCompatActivity() {
             // To add multiple modifiers to an element, you simply chain them.
             Row(modifier = Modifier.padding(24.dp)) {
                 Column(
-                    Modifier.weight(1f).padding(bottom = extraPadding)) {
+                    Modifier
+                        .weight(1f)
+                        // Ensure that padding greater than zero, otherwise app crash.
+                        .padding(bottom = extraPadding.coerceAtLeast(0.dp))
+                ) {
                     // Modifiers tell a UI element how to lay out, display, or behave within its parent layout.
                     Text(text = "Hello, ")
                     Text(text = name)
