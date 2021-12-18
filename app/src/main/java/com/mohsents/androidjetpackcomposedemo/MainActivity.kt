@@ -3,9 +3,18 @@ package com.mohsents.androidjetpackcomposedemo
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +37,30 @@ class MainActivity : AppCompatActivity() {
     */
     @Composable
     fun MyApp(names: List<String> = listOf("World", "Compose")) {
-        Column {
-            for (name in names) {
+        /*
+        * The remember() function works only as long as the composable is kept in the Composition.
+        * The source of truth belongs to whoever creates and controls that state.
+        * Instead of using remember() you can use rememberSaveable().
+        * This will save each state surviving configuration changes (such as rotations) and process death.
+        */
+        var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
+
+        if (shouldShowOnboarding) {
+            OnboardingScreen { shouldShowOnboarding = false }
+        } else {
+            Greetings()
+        }
+    }
+
+    @Composable
+    private fun Greetings(names: List<String> = List(1000) { "$it" }) {
+        /*
+         * LazyColumn doesn't recycle its children like RecyclerView.
+         * It emits new Composables as you scroll through it and is still performant,
+         * as emitting Composables is relatively cheap compared to instantiating Android Views.
+         */
+        LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+            items(items = names) { name ->
                 Greeting(name = name)
             }
         }
@@ -58,19 +89,16 @@ class MainActivity : AppCompatActivity() {
                     Text(text = name)
                 }
                 OutlinedButton(
-                    onClick = { expanded.value = !expanded.value }
+                    onClick = { expanded = !expanded }
                 ) {
-                    Text(text = if (expanded.value) "Show less" else "Show more")
+                    Text(text = if (expanded) "Show less" else "Show more")
                 }
             }
         }
     }
 
     @Composable
-    fun OnboardingScreen() {
-        // TODO: This state should be hoisted
-        var shouldShowOnboarding by remember { mutableStateOf(true) }
-
+    fun OnboardingScreen(onContinueClicked: () -> Unit) {
         Surface {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -80,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 Text("Welcome to the Basics Codelab!")
                 Button(
                     modifier = Modifier.padding(vertical = 24.dp),
-                    onClick = { shouldShowOnboarding = false }
+                    onClick = onContinueClicked
                 ) {
                     Text("Continue")
                 }
@@ -92,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun OnboardingPreview() {
         AndroidJetpackComposeDemoTheme {
-            OnboardingScreen()
+            OnboardingScreen(onContinueClicked = {}) // Do nothing on click.
         }
     }
 
