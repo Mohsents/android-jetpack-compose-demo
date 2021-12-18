@@ -1,4 +1,4 @@
-package com.mohsents.androidjetpackcomposedemo.ui.theme
+package com.mohsents.androidjetpackcomposedemo
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mohsents.androidjetpackcomposedemo.ui.theme.AndroidJetpackComposeDemoTheme
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
