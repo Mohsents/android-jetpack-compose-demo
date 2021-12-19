@@ -1,5 +1,6 @@
 package com.mohsents.androidjetpackcomposedemo
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mohsents.androidjetpackcomposedemo.ui.theme.AndroidJetpackComposeDemoTheme
@@ -26,7 +28,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MyApp()
+            AndroidJetpackComposeDemoTheme {
+                MyApp()
+            }
         }
     }
 
@@ -96,7 +100,13 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     // Modifiers tell a UI element how to lay out, display, or behave within its parent layout.
                     Text(text = "Hello, ")
-                    Text(text = name)
+                    Text(
+                        text = name,
+                        // Modify a predefined style by using the copy() function.
+                        // This way if you need to change the font family or any other attribute of h4,
+                        // you don't have to worry about the small deviations.
+                        style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
+                    )
                 }
                 OutlinedButton(
                     onClick = { expanded = !expanded }
@@ -134,11 +144,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Preview(widthDp = 320)
+    @Preview(
+        showBackground = true,
+        uiMode = UI_MODE_NIGHT_YES,
+        name = "DefaultPreviewDark"
+    )
+    @Preview()
     @Composable
     private fun PreviewGreeting() {
         AndroidJetpackComposeDemoTheme {
-            MyApp()
+            Greetings()
         }
     }
 }
