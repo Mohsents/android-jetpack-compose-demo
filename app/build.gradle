@@ -71,6 +71,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$arch_version"
     // Compose integration with LiveData
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    // Compose ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
     // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
