@@ -141,7 +141,15 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun BodyContent(modifier: Modifier = Modifier) {
-        Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+        // Modifiers will update the constraints from left to right, and then,
+        // they return back the size from right to left
+        Row(
+            modifier = modifier
+                .background(Color.Gray)
+                .padding(16.dp)
+                .size(200.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
             StaggeredGrid(modifier = modifier, 5) {
                 for (topic in topics) {
                     Chip(modifier = Modifier.padding(8.dp), text = topic)
