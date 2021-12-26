@@ -47,6 +47,26 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
+    private fun TwoText(modifier: Modifier = Modifier, text1: String, text2: String) {
+        // Intrinsics lets you query children before they're actually measured
+        Row(modifier = modifier.height(IntrinsicSize.Min)) {
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 4.dp)
+                    .wrapContentWidth(Alignment.Start), text = text1
+            )
+            Divider(color = Color.Black, modifier = modifier.fillMaxHeight().width(1.dp))
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 4.dp)
+                    .wrapContentWidth(Alignment.End), text = text2
+            )
+        }
+    }
+
+    @Composable
     private fun DecoupledConstraintLayout() {
         BoxWithConstraints {
             val constraints = if (maxWidth < maxHeight) {
@@ -246,9 +266,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @Composable
+    @Preview(showBackground = true)
+    private fun TwoTextPreview() {
+        AndroidJetpackComposeDemoTheme {
+            Surface {
+                TwoText(text1 = "Hi", text2 = "There")
+            }
+        }
+    }
+
     @Preview(showBackground = true)
     @Composable
-    fun LargeConstraintLayoutPreview() {
+    private fun LargeConstraintLayoutPreview() {
         AndroidJetpackComposeDemoTheme {
             LargeConstraintLayout()
         }
@@ -438,7 +468,7 @@ class MainActivity : ComponentActivity() {
 
     @Preview
     @Composable
-    fun ConstraintLayoutContentPreview() {
+    private fun ConstraintLayoutContentPreview() {
         AndroidJetpackComposeDemoTheme {
             ConstraintLayoutContent()
         }
