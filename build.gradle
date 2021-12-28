@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        kotlin_version = '1.6.0'
         compose_version = '1.0.5'
         activiry_compose_version = '1.4.0'
         arch_version = '2.4.0'
@@ -10,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
