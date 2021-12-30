@@ -21,20 +21,40 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.tooling.preview.Preview
 import com.mohsents.androidjetpackcomposedemo.ui.theme.AndroidJetpackComposeDemoTheme
 
 class TodoActivity : AppCompatActivity() {
 
-    val todoViewModel by viewModels<TodoViewModel>()
+    private val todoViewModel by viewModels<TodoViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidJetpackComposeDemoTheme {
                 Surface {
-                    // TODO: build the screen in compose
+                    TodoActivityScreen(todoViewModel = todoViewModel)
                 }
             }
         }
+    }
+
+    @Composable
+    private fun TodoActivityScreen(todoViewModel: TodoViewModel) {
+        val items: List<TodoItem> by todoViewModel.todoItems.observeAsState(listOf())
+        TodoScreen(
+            items = items,
+            onAddItem = todoViewModel::addItem,
+            onRemoveItem = todoViewModel::removeItem
+        )
+    }
+
+    @Composable
+    @Preview(showBackground = true)
+    private fun PreviewTodoActivityScreen() {
+        TodoActivityScreen(todoViewModel = todoViewModel)
     }
 }
