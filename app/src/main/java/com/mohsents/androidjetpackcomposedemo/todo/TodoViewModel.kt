@@ -16,22 +16,49 @@
 
 package com.mohsents.androidjetpackcomposedemo.todo
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class TodoViewModel : ViewModel() {
+    // The work done with mutableStateListOf and MutableState is intended for Compose.
+    // If this ViewModel was also used by the View system, it would be better to continue using LiveData.
 
-    private var _todoItems = MutableLiveData(listOf<TodoItem>())
-    val todoItems: LiveData<List<TodoItem>> = _todoItems
+    // mutableStateListOf allows us to create an instance of MutableList that is observable.
+    var todoItems = mutableStateListOf<TodoItem>()
+    private set
 
     fun addItem(item: TodoItem) {
-        _todoItems.value = _todoItems.value!! + listOf(item)
+        todoItems.add(item)
     }
 
     fun removeItem(item: TodoItem) {
-        _todoItems.value = _todoItems.value!!.toMutableList().also {
-            it.remove(item)
+        todoItems.remove(item)
+        onEditDone() // don't keep the editor open when removing items
+    }
+
+    // By changing currentEditPosition, compose will recompose any composable that reads currentEditItem.
+    private var currentEditPosition by mutableStateOf(-1)
+
+    val currentEditItem: TodoItem?
+        get() = todoItems.getOrNull(currentEditPosition)
+
+    fun onEditItemSelected(item: TodoItem) {
+        currentEditPosition = todoItems.indexOf(item)
+    }
+
+    fun onEditDone() {
+        currentEditPosition = -1
+    }
+
+    fun onEditItemChange(item: TodoItem) {
+        val currentItem = requireNotNull(currentEditItem)
+        require(currentItem.id == item.id) {
+            "You can only change an item with the same id as currentEditItem"
         }
+
+        todoItems[currentEditPosition] = item
     }
 }
