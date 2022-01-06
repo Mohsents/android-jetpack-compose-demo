@@ -16,6 +16,111 @@
 
 package com.mohsents.androidjetpackcomposedemo.todo
 
+import com.google.common.truth.Truth.assertThat
+import com.mohsents.androidjetpackcomposedemo.util.generateRandomTodoItem
+import org.junit.Before
+import org.junit.Test
+
 class TodoViewModelTest {
-    // TODO: Write tests
+
+    private lateinit var viewModel: TodoViewModel
+
+    @Before
+    fun setUp() {
+        viewModel = TodoViewModel()
+    }
+
+    @Test
+    fun whenAddItem_updatesList() {
+        // GIVEN
+        val item = generateRandomTodoItem()
+        // WHEN
+        viewModel.addItem(item)
+        // THEN
+        assertThat(viewModel.todoItems).isEqualTo(listOf(item))
+    }
+
+    @Test
+    fun whenRemovingItem_updatesList() {
+        // GIVEN
+        val item1 = generateRandomTodoItem()
+        val item2 = generateRandomTodoItem()
+        viewModel.addItem(item1)
+        viewModel.addItem(item2)
+
+        // WHEN
+        viewModel.removeItem(item1)
+
+        // THEN
+        assertThat(viewModel.todoItems).isEqualTo(listOf(item2))
+    }
+
+    @Test
+    fun whenNotEditing_currentEditItemIsNull() {
+        // GIVEN
+        val item = generateRandomTodoItem()
+        // WHEN
+        viewModel.addItem(item)
+        // THEN
+        assertThat(viewModel.currentEditItem).isNull()
+    }
+
+    @Test
+    fun whenEditingItem_currentEditItem_equalToEditedOne() {
+        // GIVEN
+        val item = generateRandomTodoItem()
+        viewModel.addItem(item)
+
+        // WHEN
+        viewModel.onEditItemSelected(item)
+
+        // THEN
+        assertThat(viewModel.currentEditItem).isEqualTo(item)
+    }
+
+    @Test
+    fun whenEditingItem_onEditItemChange_itemReplaced() {
+        // GIVEN
+        val item = generateRandomTodoItem()
+        viewModel.addItem(item)
+
+        // WHEN
+        viewModel.onEditItemSelected(item)
+        val expected = item.copy("task")
+        viewModel.onEditItemChange(expected)
+
+        // THEN
+        assertThat(viewModel.todoItems).isEqualTo(listOf(expected))
+    }
+
+    @Test
+    fun whenEditingItem_EditDone_currentEditItemIsNull() {
+        // GIVEN
+        val item = generateRandomTodoItem()
+        viewModel.addItem(item)
+
+        // WHEN
+        viewModel.onEditItemSelected(item)
+        viewModel.onEditDone()
+
+        // THEN
+        assertThat(viewModel.currentEditItem).isEqualTo(null)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun whenEditing_wrongItemThrows() {
+        val item1 = generateRandomTodoItem()
+        val item2 = generateRandomTodoItem()
+        viewModel.addItem(item1)
+        viewModel.addItem(item2)
+        viewModel.onEditItemSelected(item1)
+        val expected = item2.copy(task = "task")
+        viewModel.onEditItemChange(expected)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun whenNotEditing_onEditItemChangeThrows() {
+        val item = generateRandomTodoItem()
+        viewModel.onEditItemChange(item)
+    }
 }
