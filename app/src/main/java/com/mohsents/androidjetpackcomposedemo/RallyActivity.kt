@@ -19,16 +19,19 @@ package com.mohsents.androidjetpackcomposedemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.mohsents.androidjetpackcomposedemo.data.UserData
+import com.mohsents.androidjetpackcomposedemo.ui.accounts.AccountsBody
+import com.mohsents.androidjetpackcomposedemo.ui.bills.BillsBody
 import com.mohsents.androidjetpackcomposedemo.ui.components.RallyTabRow
+import com.mohsents.androidjetpackcomposedemo.ui.overview.OverviewBody
 import com.mohsents.androidjetpackcomposedemo.ui.theme.RallyTheme
 
 /**
@@ -48,22 +51,35 @@ class RallyActivity : ComponentActivity() {
 fun RallyApp() {
     RallyTheme {
         val allScreens = RallyScreen.values().toList()
-        var currentScreen by rememberSaveable { mutableStateOf(RallyScreen.Overview) }
+        val navController = rememberNavController()
+        val backStackEntry = navController.currentBackStackEntryAsState()
+        val currentScreen = RallyScreen.fromRoute(backStackEntry.value?.destination?.route)
         Scaffold(
             topBar = {
                 RallyTabRow(
                     allScreens = allScreens,
-                    onTabSelected = { screen -> currentScreen = screen },
+                    onTabSelected = { screen -> navController.navigate(screen.name) },
                     currentScreen = currentScreen
                 )
             }
         ) { innerPadding ->
-            Box(Modifier.padding(innerPadding)) {
-                currentScreen.Content(
-                    onScreenChange = { screen ->
-                        currentScreen = RallyScreen.valueOf(screen)
-                    }
-                )
+            NavHost(
+                navController = navController,
+                startDestination = RallyScreen.Overview.name,
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                composable(RallyScreen.Overview.name) {
+                    OverviewBody(
+                        onClickSeeAllAccounts = { navController.navigate(RallyScreen.Accounts.name) },
+                        onClickSeeAllBills = { navController.navigate(RallyScreen.Bills.name) },
+                    )
+                }
+                composable(RallyScreen.Accounts.name) {
+                    AccountsBody(accounts = UserData.accounts)
+                }
+                composable(RallyScreen.Bills.name) {
+                    BillsBody(bills = UserData.bills)
+                }
             }
         }
     }

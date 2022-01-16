@@ -20,37 +20,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.MoneyOff
 import androidx.compose.material.icons.filled.PieChart
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.mohsents.androidjetpackcomposedemo.data.UserData
-import com.mohsents.androidjetpackcomposedemo.ui.accounts.AccountsBody
-import com.mohsents.androidjetpackcomposedemo.ui.bills.BillsBody
-import com.mohsents.androidjetpackcomposedemo.ui.overview.OverviewBody
 
 /**
  * Screen metadata for Rally.
  */
 enum class RallyScreen(
     val icon: ImageVector,
-    val body: @Composable ((String) -> Unit) -> Unit
 ) {
-    Overview(
-        icon = Icons.Filled.PieChart,
-        body = { OverviewBody() }
-    ),
-    Accounts(
-        icon = Icons.Filled.AttachMoney,
-        body = { AccountsBody(UserData.accounts) }
-    ),
-    Bills(
-        icon = Icons.Filled.MoneyOff,
-        body = { BillsBody(UserData.bills) }
-    );
-
-    @Composable
-    fun Content(onScreenChange: (String) -> Unit) {
-        body(onScreenChange)
-    }
+    Overview(icon = Icons.Filled.PieChart),
+    Accounts(icon = Icons.Filled.AttachMoney),
+    Bills(icon = Icons.Filled.MoneyOff);
 
     companion object {
         fun fromRoute(route: String?): RallyScreen =
