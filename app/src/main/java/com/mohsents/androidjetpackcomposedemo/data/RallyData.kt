@@ -103,4 +103,8 @@ object UserData {
     fun getAccount(accountName: String?): Account {
         return accounts.first { it.name == accountName }
     }
+
+    fun getBill(billName: String?): Bill {
+        return bills.first { it.name == billName }
+    }
 }

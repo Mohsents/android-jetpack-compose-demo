@@ -58,8 +58,15 @@ fun AccountRow(
  * A row representing the basic information of a Bill.
  */
 @Composable
-fun BillRow(name: String, due: String, amount: Float, color: Color) {
+fun BillRow(
+    modifier: Modifier = Modifier,
+    name: String,
+    due: String,
+    amount: Float,
+    color: Color
+) {
     BaseRow(
+        modifier = modifier,
         color = color,
         title = name,
         subtitle = "Due $due",

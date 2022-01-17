@@ -35,6 +35,7 @@ import com.mohsents.androidjetpackcomposedemo.data.UserData
 import com.mohsents.androidjetpackcomposedemo.ui.accounts.AccountsBody
 import com.mohsents.androidjetpackcomposedemo.ui.accounts.SingleAccountBody
 import com.mohsents.androidjetpackcomposedemo.ui.bills.BillsBody
+import com.mohsents.androidjetpackcomposedemo.ui.bills.SingleBillBody
 import com.mohsents.androidjetpackcomposedemo.ui.components.RallyTabRow
 import com.mohsents.androidjetpackcomposedemo.ui.overview.OverviewBody
 import com.mohsents.androidjetpackcomposedemo.ui.theme.RallyTheme
@@ -93,17 +94,23 @@ fun RallyNavHost(
                 onAccountClick = { name ->
                     navController.navigate("${RallyScreen.Accounts.name}/$name")
                 },
+                onBillClick = { name ->
+                    navController.navigate("${RallyScreen.Bills.name}/$name")
+                }
             )
         }
+        val accountsName = RallyScreen.Accounts.name
+        val billsName = RallyScreen.Bills.name
         composable(RallyScreen.Accounts.name) {
             AccountsBody(accounts = UserData.accounts) { name ->
-                navController.navigate("Accounts/${name}")
+                navController.navigate("$accountsName/${name}")
             }
         }
         composable(RallyScreen.Bills.name) {
-            BillsBody(bills = UserData.bills)
+            BillsBody(bills = UserData.bills) { name ->
+                navController.navigate("$billsName/${name}")
+            }
         }
-        val accountsName = RallyScreen.Accounts.name
         composable(
             "$accountsName/{name}",
             arguments = listOf(
@@ -118,6 +125,21 @@ fun RallyNavHost(
             val accountName = entry.arguments?.getString("name")
             val account = UserData.getAccount(accountName)
             SingleAccountBody(account = account)
+        }
+        composable(
+            "$billsName/{name}",
+            arguments = listOf(
+                navArgument("name") {
+                    type = NavType.StringType
+                },
+            ),
+            deepLinks = listOf(navDeepLink {
+                uriPattern = "rally://$billsName/{name}"
+            }),
+        ) { entry ->
+            val billName = entry.arguments?.getString("name")
+            val bill = UserData.getBill(billName)
+            SingleBillBody(bill = bill)
         }
     }
 }

@@ -27,6 +27,9 @@
                 <data
                     android:host="accounts"
                     android:scheme="rally" />
+                <data
+                    android:host="bills"
+                    android:scheme="rally" />
             </intent-filter>
         </activity>
     </application>
