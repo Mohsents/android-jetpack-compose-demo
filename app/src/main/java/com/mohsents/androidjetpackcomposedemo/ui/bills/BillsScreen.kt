@@ -20,8 +20,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.mohsents.androidjetpackcomposedemo.R
 import com.mohsents.androidjetpackcomposedemo.data.Bill
 import com.mohsents.androidjetpackcomposedemo.ui.components.BillRow
@@ -36,7 +36,7 @@ fun BillsBody(
     onBillClick: (String) -> Unit = {}
 ) {
     StatementBody(
-        modifier = Modifier.clearAndSetSemantics { contentDescription = "Bills" },
+        modifier = Modifier.semantics { contentDescription = "All Bills" },
         items = bills,
         amounts = { bill -> bill.amount },
         colors = { bill -> bill.color },

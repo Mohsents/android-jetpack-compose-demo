@@ -70,4 +70,36 @@ class RallyNavHostTest {
             .onNodeWithContentDescription("Accounts Screen")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun rallyNavHost_navigateToAllAccounts_clickSingleRow() {
+        composeTestRule
+            .onNodeWithContentDescription("All Accounts").apply {
+                performScrollTo()
+                performClick()
+            }
+        composeTestRule
+            .onNodeWithContentDescription("Single Row")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("Detail Screen")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun rallyNavHost_navigateToAllBills_clickSingleRow() {
+        composeTestRule
+            .onNodeWithContentDescription("All Bills").apply {
+                performScrollTo()
+                performClick()
+            }
+        composeTestRule
+            .onNodeWithContentDescription("Single Row")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("Detail Screen")
+            .assertIsDisplayed()
+    }
 }

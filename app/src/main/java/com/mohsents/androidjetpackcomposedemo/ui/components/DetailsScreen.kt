@@ -26,6 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 
 /**
@@ -53,7 +55,11 @@ fun <T> StatementBody(
                     .align(Alignment.Center)
                     .fillMaxWidth()
             )
-            Column(modifier = Modifier.align(Alignment.Center)) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .semantics { contentDescription = "Detail Screen" }
+            ) {
                 Text(
                     text = circleLabel,
                     style = MaterialTheme.typography.body1,
@@ -68,7 +74,11 @@ fun <T> StatementBody(
         }
         Spacer(Modifier.height(10.dp))
         Card {
-            Column(modifier = Modifier.padding(12.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .semantics { contentDescription = "Single Row" }
+            ) {
                 items.forEach { item ->
                     rows(item)
                 }
