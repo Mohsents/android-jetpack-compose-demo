@@ -14,7 +14,11 @@
   ~   limitations under the License.
   ~
   -->
-<resources>
-    <color name="statusBarColor">#EFEFEF</color>
-    <color name="backgroundColor">#26282F</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AndroidJetpackComposeDemo" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowBackground">?attr/colorSurface</item>
+    </style>
 </resources>

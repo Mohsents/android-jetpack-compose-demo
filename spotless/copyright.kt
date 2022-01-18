@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright $YEAR The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,3 @@
  * limitations under the License.
  */
 
-package com.mohsents.androidjetpackcomposedemo.ui.theme
-
-import androidx.compose.ui.graphics.Color
-
-val Green500 = Color(0xFF1EB980)
-val DarkBlue900 = Color(0xFF26282F) // TODO: Confirm literal name
