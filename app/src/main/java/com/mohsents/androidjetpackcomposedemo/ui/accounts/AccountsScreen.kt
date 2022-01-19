@@ -17,7 +17,10 @@
 package com.mohsents.androidjetpackcomposedemo.ui.accounts
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.mohsents.androidjetpackcomposedemo.R
 import com.mohsents.androidjetpackcomposedemo.data.Account
 import com.mohsents.androidjetpackcomposedemo.ui.components.AccountRow
@@ -29,6 +32,7 @@ import com.mohsents.androidjetpackcomposedemo.ui.components.StatementBody
 @Composable
 fun AccountsBody(accounts: List<Account>) {
     StatementBody(
+        modifier = Modifier.semantics { contentDescription = "Accounts Screen" },
         items = accounts,
         amounts = { account -> account.balance },
         colors = { account -> account.color },

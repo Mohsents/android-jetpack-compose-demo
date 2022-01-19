@@ -47,4 +47,32 @@ class TopAppBarTest {
                     ), useUnmergedTree = true
         ).assertExists()
     }
+
+    @Test
+    fun rallyTopAppBarTest_selectAccountsTab_navigateToAccountsScreen() {
+        composeTestRule.setContent {
+            RallyApp()
+        }
+        composeTestRule
+            .onNodeWithContentDescription(RallyScreen.Accounts.name)
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("Accounts Screen")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun rallyTopAppBarTest_selectBillsTab_navigateToBillsScreen() {
+        composeTestRule.setContent {
+            RallyApp()
+        }
+        composeTestRule
+            .onNodeWithContentDescription(RallyScreen.Bills.name)
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("All Bills")
+            .assertIsDisplayed()
+    }
 }
