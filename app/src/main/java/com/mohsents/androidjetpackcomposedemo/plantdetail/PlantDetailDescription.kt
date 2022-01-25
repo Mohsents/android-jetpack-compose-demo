@@ -20,13 +20,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.mohsents.androidjetpackcomposedemo.R
+import com.mohsents.androidjetpackcomposedemo.data.Plant
+import com.mohsents.androidjetpackcomposedemo.viewmodels.PlantDetailViewModel
 
 @Composable
 fun PlantName(name: String) {
@@ -41,16 +44,23 @@ fun PlantName(name: String) {
 }
 
 @Composable
-fun PlantDetailDescription() {
-    Surface {
-        Text("Hello Compose")
+fun PlantDetailDescription(plantDetailViewModel: PlantDetailViewModel) {
+    val plant by plantDetailViewModel.plant.observeAsState()
+    plant?.let {
+        PlantDetailContent(plant = it)
     }
+}
+
+@Composable
+fun PlantDetailContent(plant: Plant) {
+    PlantName(name = plant.name)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PlantNamePreview() {
+    val plant = Plant("id", "Apple", "Apple", 1, 3, "")
     MaterialTheme {
-        PlantName("Apple")
+        PlantDetailContent(plant = plant)
     }
 }
