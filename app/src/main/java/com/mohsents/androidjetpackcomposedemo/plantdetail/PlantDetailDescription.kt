@@ -16,6 +16,7 @@
 
 package com.mohsents.androidjetpackcomposedemo.plantdetail
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.mohsents.androidjetpackcomposedemo.R
 import com.mohsents.androidjetpackcomposedemo.data.Plant
 import com.mohsents.androidjetpackcomposedemo.viewmodels.PlantDetailViewModel
@@ -117,9 +119,18 @@ fun PlantDescription(description: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun PlantDescriptionPreview() {
+fun PlantDetailContentPreview() {
     val plant = Plant("id", "Apple", "HTML<br><br>description", 3, 30, "")
-    MaterialTheme {
+    MdcTheme {
+        PlantDetailContent(plant)
+    }
+}
+
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun PlantDetailContentDarkPreview() {
+    val plant = Plant("id", "Apple", "HTML<br><br>description", 3, 30, "")
+    MdcTheme {
         PlantDetailContent(plant)
     }
 }
@@ -127,7 +138,7 @@ fun PlantDescriptionPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun PlantWateringPreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantWatering(7)
     }
 }
@@ -136,7 +147,15 @@ private fun PlantWateringPreview() {
 @Composable
 private fun PlantNamePreview() {
     val plant = Plant("id", "Apple", "Apple", 1, 3, "")
-    MaterialTheme {
+    MdcTheme {
         PlantDetailContent(plant = plant)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PlantDescriptionPreview() {
+    MdcTheme {
+        PlantDescription("HTML<br><br>description")
     }
 }
