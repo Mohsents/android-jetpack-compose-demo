@@ -27,6 +27,7 @@ import com.mohsents.androidjetpackcomposedemo.base.CraneTabBar
 import com.mohsents.androidjetpackcomposedemo.base.CraneTabs
 import com.mohsents.androidjetpackcomposedemo.base.ExploreSection
 import com.mohsents.androidjetpackcomposedemo.data.ExploreModel
+import kotlinx.coroutines.launch
 
 typealias OnExploreItemClicked = (ExploreModel) -> Unit
 
@@ -47,12 +48,14 @@ fun CraneHome(
             CraneDrawer()
         }
     ) {
+        val scope = rememberCoroutineScope()
         CraneHomeContent(
             modifier = modifier,
             onExploreItemClicked = onExploreItemClicked,
             openDrawer = {
-                // TODO Codelab: rememberCoroutineScope step - open the navigation drawer
-                // scaffoldState.drawerState.open()
+                scope.launch {
+                    scaffoldState.drawerState.open()
+                }
             }
         )
     }
