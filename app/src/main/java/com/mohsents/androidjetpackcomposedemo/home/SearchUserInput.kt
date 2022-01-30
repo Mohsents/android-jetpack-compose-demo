@@ -29,9 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mohsents.androidjetpackcomposedemo.R
 import com.mohsents.androidjetpackcomposedemo.base.CraneEditableUserInput
 import com.mohsents.androidjetpackcomposedemo.base.CraneUserInput
+import com.mohsents.androidjetpackcomposedemo.base.rememberEditableUserInputState
 import com.mohsents.androidjetpackcomposedemo.home.PeopleUserInputAnimationState.Invalid
 import com.mohsents.androidjetpackcomposedemo.home.PeopleUserInputAnimationState.Valid
 import com.mohsents.androidjetpackcomposedemo.ui.CraneTheme
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
 
 enum class PeopleUserInputAnimationState { Valid, Invalid }
 
@@ -92,12 +95,19 @@ fun FromDestination() {
 
 @Composable
 fun ToDestinationUserInput(onToDestinationChanged: (String) -> Unit) {
+    val editableUserInputState = rememberEditableUserInputState("Choose Destination")
     CraneEditableUserInput(
-        hint = "Choose Destination",
+        state = editableUserInputState,
         caption = "To",
         vectorImageId = R.drawable.ic_plane,
-        onInputChanged = onToDestinationChanged
     )
+
+    val currentOnDestinationChanged by rememberUpdatedState(newValue = onToDestinationChanged)
+    LaunchedEffect(editableUserInputState) {
+        snapshotFlow { editableUserInputState.text }
+            .filter { !editableUserInputState.isHint }
+            .collect { currentOnDestinationChanged(editableUserInputState.text) }
+    }
 }
 
 @Composable
