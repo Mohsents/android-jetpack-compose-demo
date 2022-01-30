@@ -32,7 +32,7 @@ if (rootProject.file("local.properties").exists()) {
 android {
     compileSdkVersion 32
     defaultConfig {
-        applicationId "androidx.compose.samples.crane"
+        applicationId "com.mohsents.androidjetpackcomposedemo"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
