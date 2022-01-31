@@ -19,6 +19,7 @@ package com.mohsents.androidjetpackcomposedemo.home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
@@ -29,6 +30,7 @@ import com.mohsents.androidjetpackcomposedemo.ui.CraneTheme
 import com.mohsents.androidjetpackcomposedemo.util.ProvideImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -56,6 +58,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 private fun MainScreen(onExploreItemClicked: OnExploreItemClicked) {
     Surface(color = MaterialTheme.colors.primary) {

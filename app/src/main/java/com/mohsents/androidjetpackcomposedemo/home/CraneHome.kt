@@ -16,6 +16,7 @@
 
 package com.mohsents.androidjetpackcomposedemo.home
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -35,6 +36,7 @@ enum class CraneScreen {
     Fly, Sleep, Eat
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun CraneHome(
     onExploreItemClicked: OnExploreItemClicked,
@@ -61,6 +63,7 @@ fun CraneHome(
     }
 }
 
+@ExperimentalAnimationApi
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CraneHomeContent(
