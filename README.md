@@ -13,7 +13,7 @@ This project covers basic demo of [**Android Jetpack Compose**](https://develope
 [testing](https://github.com/Mohsents/android-jetpack-compose-demo/tree/testing): Solution for [Testing in Jetpack Compose](https://developer.android.com/codelabs/jetpack-compose-testing) codelab. \
 [accessibility](https://github.com/Mohsents/android-jetpack-compose-demo/tree/accessibility): Solution for [Accessibility in Jetpack Compose](https://developer.android.com/codelabs/jetpack-compose-accessibility) codelab. \
 [migration](https://github.com/Mohsents/android-jetpack-compose-demo/tree/migration): Solution for [Migrating to Jetpack Compose](https://developer.android.com/codelabs/jetpack-compose-migration) codelab. \
-[advancestate](https://github.com/Mohsents/android-jetpack-compose-demo/tree/advancestate): Solution for [Advanced State And SideEffects Codelab](https://developer.android.com/codelabs/jetpack-compose-advanced-state-side-effects) codelab.
+[advancestate](https://github.com/Mohsents/android-jetpack-compose-demo/tree/advancestate): Solution for [Advanced State And SideEffects](https://developer.android.com/codelabs/jetpack-compose-advanced-state-side-effects) codelab.
 
 ## Tutorial
 Checked out [Android Jetpack Compose](http://developer.android.com/courses/pathways/compose)
