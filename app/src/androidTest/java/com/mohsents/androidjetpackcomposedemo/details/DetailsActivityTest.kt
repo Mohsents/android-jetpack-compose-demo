@@ -16,7 +16,6 @@
 
 package com.mohsents.androidjetpackcomposedemo.details
 
-import androidx.compose.samples.crane.R
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithText
@@ -29,6 +28,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.google.android.libraries.maps.MapView
 import com.google.android.libraries.maps.model.CameraPosition
 import com.google.android.libraries.maps.model.LatLng
+import com.mohsents.androidjetpackcomposedemo.R
 import com.mohsents.androidjetpackcomposedemo.data.DestinationsRepository
 import com.mohsents.androidjetpackcomposedemo.data.ExploreModel
 import com.mohsents.androidjetpackcomposedemo.data.MADRID

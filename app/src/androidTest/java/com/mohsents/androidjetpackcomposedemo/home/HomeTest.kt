@@ -16,6 +16,7 @@
 
 package com.mohsents.androidjetpackcomposedemo.home
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -32,9 +33,11 @@ class HomeTest {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
+    @ExperimentalAnimationApi
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
+    @ExperimentalAnimationApi
     @Before
     fun setUp() {
         composeTestRule.setContent {
@@ -42,6 +45,7 @@ class HomeTest {
         }
     }
 
+    @ExperimentalAnimationApi
     @Test
     fun home_navigatesToAllScreens() {
         composeTestRule.onNodeWithText("Explore Flights by Destination").assertIsDisplayed()
