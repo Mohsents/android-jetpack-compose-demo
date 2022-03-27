@@ -10,10 +10,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,11 +74,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Greeting(name: String) {
         Card(
-            backgroundColor = MaterialTheme.colors.primary,
-            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+            containerColor = MaterialTheme.colorScheme.primary
         ) {
             CardContent(name = name)
         }
@@ -114,7 +115,7 @@ class MainActivity : ComponentActivity() {
                     // Modify a predefined style by using the copy() function.
                     // This way if you need to change the font family or any other attribute of h4,
                     // you don't have to worry about the small deviations.
-                    style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.ExtraBold)
                 )
                 if (expanded) {
                     Text(

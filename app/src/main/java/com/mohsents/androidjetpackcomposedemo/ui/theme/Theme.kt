@@ -1,20 +1,20 @@
 package com.mohsents.androidjetpackcomposedemo.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color.Companion.White
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
     surface = Blue,
     onSurface = Navy,
     primary = Navy,
     onPrimary = Chartreuse
 )
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
     surface = Blue,
     onSurface = White,
     primary = LightBlue,
@@ -33,9 +33,8 @@ fun AndroidJetpackComposeDemoTheme(
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = Typography,
-        shapes = Shapes,
         content = content
     )
 }
